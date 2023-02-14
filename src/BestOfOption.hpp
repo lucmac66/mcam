@@ -6,11 +6,18 @@
 class BestOfOption : public Option
 {
 public:
-  // double T_;        /// maturité
-  // int nbTimeSteps_; /// nombre de pas de temps de discrétisation
-  // int size_;        /// dimension du modèle, redondant avec BlackScholesModel::size_
-  PnlVect *lambda_;
+  PnlVect *lambda_; /*! vecteur des lambdas pour le calcul du payoff */
 
+  /**
+   * Constructeur de la classe BestOfOption
+   *
+   * @param T maturité
+   * @param dates nombre de dates d'exercice
+   * @param size nombre de sous-jacents
+   * @param strike strike de l'option
+   * @param lambda vecteur des coefficients lambda
+   * @param rate taux d'intérêt
+   */
   BestOfOption(double T, int dates, int size, double strike, PnlVect *lambda, double rate);
 
 
@@ -20,7 +27,8 @@ public:
    * @param[in] path est une matrice de taille (N+1) x d
    * contenant une trajectoire du modèle telle que créée
    * par la fonction asset.
-   * @return phi(trajectoire)
+   * @param[in] t tempas auquel on calcule le payoff
+   * @return payoff
    */
   double payoff(const PnlVect *path, double t) override;
 };
